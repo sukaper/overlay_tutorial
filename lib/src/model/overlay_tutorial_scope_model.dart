@@ -8,7 +8,12 @@ class OverlayTutorialScopeModel with EquatableMixin {
   Rect? rect;
 
   Rect computeRect() {
-    final renderBox = context?.findRenderObject() as RenderBox?;
+    RenderBox? renderBox;
+    try {
+      renderBox = context?.findRenderObject() as RenderBox?;
+    } catch (e) {
+      return Rect.zero;
+    }
 
     if (renderBox == null || !renderBox.attached) {
       return Rect.zero;
